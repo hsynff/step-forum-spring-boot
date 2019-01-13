@@ -1,0 +1,99 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forum :: Home Page</title>
+
+
+    <!--<c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/imports.html"/>-->
+    <th:block th:replace="fragment/imports :: imports"/>
+
+    <!--<script>-->
+    <!--$(function () {-->
+    <!--<c:if test="${message ne null}">-->
+    <!--alert('${message}');-->
+
+    <!--</c:if>-->
+
+    <!--})-->
+    <!--</script>-->
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <th:block th:replace="fragment/header :: header"/>
+
+
+    <section class="content">
+
+        <div class="container">
+            <h1>All Topics</h1>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+
+                    <th:block th:each="topic : ${topicList}">
+                        <!-- POST -->
+                        <div class="post">
+                            <div class="wrap-ut pull-left">
+                                <div class="userinfo pull-left">
+                                    <div class="avatar">
+                                        <img th:src="@{'uploads/'+${topic.user.imagePath}}"
+                                             th:alt="${topic.user.firstName}+' '+${topic.user.lastName}"
+                                             th:title="${topic.user.firstName}+' '+${topic.user.lastName}"/>
+                                    </div>
+                                </div>
+                                <div class="posttext pull-left">
+                                    <h2><a th:href="@{'/topic?id='+${topic.id}}" th:text="${topic.title}">Topic Title</a>
+                                    </h2>
+                                    <p th:text="${topic.desc}">Description</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="postinfo pull-left">
+                                <div class="comments">
+                                    <div class="commentbg" th:inline="text">
+                                        [[${topic.commentList.size()}]]
+                                        <div class="mark"></div>
+                                    </div>
+
+                                </div>
+                                <div class="views" th:inline="text">
+                                    <i class="fa fa-eye"></i>
+                                    [[${topic.viewCount}]]
+                                </div>
+                                <div class="time" th:inline="text">
+                                    <i class="fa fa-clock-o"></i>
+                                    [[${topic.topicAge()}]]
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- POST -->
+                    </th:block>
+
+
+                </div>
+
+                <!--<c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/right-menu.jsp"/>-->
+                <th:block th:replace="fragment/right-menu :: menu"/>
+            </div>
+        </div>
+
+        <br><br>
+
+    </section>
+
+    <!--<c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/footer.html"/>-->
+    <!--<th:block th:replace="fragment/footer :: footer"/>-->
+
+</div>
+
+
+</body>
+
+<!-- Mirrored from forum.azyrusthemes.com/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Oct 2018 05:38:53 GMT -->
+</html>
