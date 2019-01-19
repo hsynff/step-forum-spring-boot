@@ -2,13 +2,13 @@
 <script type="text/javascript">
     $(function () {
         $.ajax({
-            url: '/ts?action=getPopularTopics',
+            url: '/topics/popular',
             type: 'GET',
             dataType: 'json',
             success: function (topicList) {
                 $('#idPopularTopic').empty();
                 topicList.forEach(function (topic) {
-                    $('#idPopularTopic').append('<li><a href="/ns?action=topic&id=' + topic.id + '">' + topic.title + ' <span class="badge pull-right">' + topic.commentCount + '</span></a></li>');
+                    $('#idPopularTopic').append('<li><a href="/topic?id=' + topic.id + '">' + topic.title + ' <span class="badge pull-right">' + topic.commentCount + '</span></a></li>');
 
                 })
             },

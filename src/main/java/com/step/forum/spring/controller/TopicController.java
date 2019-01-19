@@ -25,7 +25,7 @@ public class TopicController {
         return "fragment/comments";
     }
 
-    @RequestMapping("/topic/popular")
+    @RequestMapping("/topics/popular")
     @ResponseBody
     public List<Topic> getPopularTopics(){
         return topicService.getPopularTopics();
