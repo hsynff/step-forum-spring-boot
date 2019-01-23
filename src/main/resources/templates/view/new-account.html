@@ -1,20 +1,18 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forum :: New account</title>
 
-    <c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/imports.jsp"/>
+    <th:block th:replace="fragment/imports :: imports"/>
 
 </head>
 <body class="newaccountpage">
 
 <div class="container-fluid">
 
-    <c:import url="${pageContext.request.request.contextPath}/WEB-INF/fragment/header.jsp"/>
+    <th:block th:replace="fragment/header :: header"/>
 
 
     <section class="content">
@@ -34,7 +32,7 @@
 
                     <!-- POST -->
                     <div class="post">
-                        <form action="${pageContext.request.contextPath}/us?action=doRegister" class="form newtopic" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/register}" th:object="${user}" class="form newtopic" method="post" enctype="multipart/form-data">
                             <div class="postinfotop">
                                 <h2>Create New Account</h2>
                             </div>
@@ -53,14 +51,14 @@
                                     <div class="posttext pull-left">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
-                                                <input type="text" placeholder="First Name" name="firstName" class="form-control"/>
+                                                <input type="text" placeholder="First Name" th:field="*{firstName}" name="firstName" class="form-control"/>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
-                                                <input type="text" placeholder="Last Name" name="lastName" class="form-control"/>
+                                                <input type="text" placeholder="Last Name" th:field="*{lastName}" name="lastName" class="form-control"/>
                                             </div>
                                         </div>
                                         <div>
-                                            <input type="text" placeholder="Email" name="email" class="form-control"/>
+                                            <input type="text" placeholder="Email" th:field="*{email}" name="email" class="form-control"/>
                                         </div>
                                         <div>
                                             <input type="file" name="img" class="form-control" accept="image/jpeg, image/jpg, image/png">
@@ -68,7 +66,7 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
-                                                <input type="password" placeholder="Password" class="form-control"
+                                                <input type="password" placeholder="Password" th:field="*{password}" class="form-control"
                                                        id="pass" name="pass"/>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
@@ -99,15 +97,17 @@
                     </div>
                     <!-- POST -->
 
-
                 </div>
-                <c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/right-menu.jsp"/>
+
+                <th:block th:replace="fragment/right-menu :: menu"/>
+
             </div>
         </div>
 
     </section>
 
-    <c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/footer.jsp"/>
+    <th:block th:replace="fragment/footer :: footer"/>
+
 </div>
 
 

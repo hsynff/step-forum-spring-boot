@@ -1,13 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forum :: New topic</title>
 
-    <c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/imports.jsp"/>
+    <th:block th:replace="fragment/imports :: imports"/>
+
     <script type="text/javascript">
         $(function () {
            $('#idInputTitle').blur(function () {
@@ -32,7 +31,7 @@
 
 <div class="container-fluid">
 
-    <c:import url="${pageContext.request.request.contextPath}/WEB-INF/fragment/header.jsp"/>
+    <th:block th:replace="fragment/header :: header"/>
 
     <section class="content">
         <br><br>
@@ -45,12 +44,12 @@
 
                     <!-- POST -->
                     <div class="post">
-                        <form action="${pageContext.request.contextPath}/ts?action=addNewTopic" class="form newtopic"
+                        <form th:action="@{/user/new-topic}" class="form newtopic"
                               method="post">
                             <div class="topwrap">
                                 <div class="userinfo pull-left">
                                     <div class="avatar">
-                                        <img src="${pageContext.request.contextPath}/uploads/${sessionScope.user.imagePath}"
+                                        <img th:src="@{/uploads/}"
                                              alt=""/>
                                     </div>
                                 </div>
@@ -94,13 +93,13 @@
 
 
                 </div>
-                <c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/right-menu.jsp"/>
+                <th:block th:replace="fragment/right-menu :: menu"/>
             </div>
         </div>
 
     </section>
 
-    <c:import url="${pageContext.request.contextPath}/WEB-INF/fragment/footer.jsp"/>
+    <th:block th:replace="fragment/footer :: footer"/>
 
 </div>
 
