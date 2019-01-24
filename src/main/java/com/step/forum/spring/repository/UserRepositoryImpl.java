@@ -10,12 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final String GET_USER_BY_EMAIL_SQL = "select * from user u inner join role r on u.id_role=r.id_role where u.email = ?";
     private final String INSERT_NEW_USER_SQL = "insert into user(email, password, token, status, id_role, first_name, last_name, img) values (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_USER_STATUS_BY_TOKEN = "update user set token=?, status=? where token=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -45,6 +47,16 @@ public class UserRepositoryImpl implements UserRepository {
                 return user;
             }
         });
+    }
+
+    @Override
+    public void updateUserStatusByToken(String token) {
+        String newToken = UUID.randomUUID().toString();
+        int status  = 1;
+        int affectedRows = jdbcTemplate.update(UPDATE_USER_STATUS_BY_TOKEN, newToken, status, token);
+        if (affectedRows==0){
+            throw new IllegalArgumentException("Token is invalid");
+        }
     }
 
 }

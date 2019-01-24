@@ -35,7 +35,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void addTopic(Topic topic) {
-
+        topicRepository.addTopic(topic);
     }
 
     @Override
@@ -55,11 +55,10 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void addComment(Comment comment) {
-
-    }
+        topicRepository.addComment(comment);    }
 
     @Override
-    public List<Topic> getTopicByUserId(int idUser) {
-        return null;
+    public List<Topic> getTopicsByUserId(int idUser) {
+        return topicRepository.getTopicsByUserId(idUser);
     }
 }

@@ -9,4 +9,5 @@ public interface UserService extends UserDetailsService{
     void addUser(User user);
     @Override
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
+    void updateUserStatusByToken(String token);
 }

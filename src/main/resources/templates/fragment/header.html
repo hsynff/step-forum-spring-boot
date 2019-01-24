@@ -31,7 +31,7 @@
 
                         <div class="avatar pull-left dropdown">
                             <a data-toggle="dropdown" href="#"><img
-                                    src="${pageContext.request.contextPath}/uploads/${user.imagePath}" alt=""/></a> <b
+                                    th:src="@{'/uploads/'+${#authentication.getPrincipal().getImagePath()}}" alt=""/></a> <b
                                 class="caret"></b>
                             <ul class="dropdown-menu" role="menu">
                                 <li role="presentation"><a role="menuitem" tabindex="-3" th:href="@{/logout}">Log Out</a></li>

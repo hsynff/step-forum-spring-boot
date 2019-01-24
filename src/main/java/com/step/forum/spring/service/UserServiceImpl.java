@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    @Override
+    public void updateUserStatusByToken(String token) {
+        userRepository.updateUserStatusByToken(token);
+    }
 }

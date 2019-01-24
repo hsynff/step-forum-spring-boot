@@ -47,6 +47,13 @@ public class TopicRepositoryImpl implements TopicRepository {
             "group by t.title having comments>0 " +
             "order by comments desc " +
             "limit 7";
+    private final String ADD_TOPIC_SQL = "insert into topic(title, description, share_date, view_count, id_user, status) " +
+            "values(?, ?, ?, ?, ?, ?)";
+
+    private final String ADD_COMMENT_SQL = "insert into comment(description, write_date, id_topic, id_user) values(?,?,?,?)";
+
+    private final String GET_TOPICS_BY_USER_ID_SQL = "select id_topic, title from topic where id_user=? and status = ? order by share_date desc limit 7";
+
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -141,7 +148,8 @@ public class TopicRepositoryImpl implements TopicRepository {
 
     @Override
     public void addTopic(Topic topic) {
-
+        // title, description, share_date, view_count, id_user, status
+        jdbcTemplate.update(ADD_TOPIC_SQL, topic.getTitle(), topic.getDesc(), topic.getShareDate(), topic.getViewCount(), topic.getUser().getId(), topic.getStatus());
     }
 
     @Override
@@ -181,10 +189,21 @@ public class TopicRepositoryImpl implements TopicRepository {
     @Override
     public void addComment(Comment comment) {
 
+        jdbcTemplate.update(ADD_COMMENT_SQL, comment.getDesc(), comment.getWriteDate(), comment.getTopic().getId(), comment.getUser().getId());
     }
 
     @Override
-    public List<Topic> getTopicByUserId(int idUser) {
-        return null;
+    public List<Topic> getTopicsByUserId(int idUser) {
+        List<Topic> list = jdbcTemplate.query(GET_TOPICS_BY_USER_ID_SQL, new Object[]{idUser, 1}, new RowMapper<Topic>() {
+            @Nullable
+            @Override
+            public Topic mapRow(ResultSet rs, int i) throws SQLException {
+                Topic topic = new Topic();
+                topic.setId(rs.getInt("id_topic"));
+                topic.setTitle(rs.getString("title"));
+                return topic;
+            }
+        });
+        return list;
     }
 }

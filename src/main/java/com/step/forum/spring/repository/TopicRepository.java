@@ -22,5 +22,5 @@ public interface TopicRepository {
 
     void addComment(Comment comment);
 
-    List<Topic> getTopicByUserId(int idUser);
+    List<Topic> getTopicsByUserId(int idUser);
 }

@@ -1,14 +1,14 @@
-<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="menu">
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="menu" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <script type="text/javascript">
     $(function () {
         $.ajax({
-            url: '/ts?action=getPopularTopics',
+            url: '/topics/popular',
             type: 'GET',
             dataType: 'json',
             success: function (topicList) {
                 $('#idPopularTopic').empty();
                 topicList.forEach(function (topic) {
-                    $('#idPopularTopic').append('<li><a href="/ns?action=topic&id=' + topic.id + '">' + topic.title + ' <span class="badge pull-right">' + topic.commentCount + '</span></a></li>');
+                    $('#idPopularTopic').append('<li><a href="/topic?id=' + topic.id + '">' + topic.title + ' <span class="badge pull-right">' + topic.commentCount + '</span></a></li>');
 
                 })
             },
@@ -23,10 +23,11 @@
 
     function getTopicsByUserId() {
         $.ajax({
-            url: '/ts?action=getTopicByUserId',
+            url: '/user/get-topics-by-user-id',
             type: 'GET',
             dataType: 'json',
             success: function (listTopic) {
+                console.log(listTopic);
                 $('#idDivMyTopics').empty();
                 listTopic.forEach(function (topic) {
                     $('#idDivMyTopics').append(' <div class="divline"></div><div class="blocktxt"><a href="/ns?action=topic&id='+topic.id+'">'+topic.title+'</a></div>')
@@ -51,16 +52,16 @@
         </div>
     </div>
 
-    <!-- -->
-    <!--<c:if test="${sessionScope.user ne null}">-->
-        <!--<script> getTopicsByUserId(); </script>-->
-        <!--<div class="sidebarblock">-->
-            <!--<h3 class="bg-primary">My Topics</h3>-->
-            <!--<div id="idDivMyTopics">-->
 
-            <!--</div>-->
-        <!--</div>-->
-    <!--</c:if>-->
+    <th:block sec:authorize="isAuthenticated()">
+        <script> getTopicsByUserId(); </script>
+        <div class="sidebarblock">
+            <h3 class="bg-primary">My Topics</h3>
+            <div id="idDivMyTopics">
+
+            </div>
+        </div>
+    </th:block>
 
 
 </div>

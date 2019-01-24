@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.step.forum.spring.util.TopicUtil;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -47,5 +48,9 @@ public class Topic {
 
     public String topicAge(){
         return TopicUtil.ageOf(shareDate);
+    }
+
+    public Topic(int id){
+        this.id = id;
     }
 }

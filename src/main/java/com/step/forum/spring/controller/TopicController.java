@@ -1,5 +1,6 @@
 package com.step.forum.spring.controller;
 
+import com.step.forum.spring.job.PopularTopicsUpdaterJob;
 import com.step.forum.spring.model.Comment;
 import com.step.forum.spring.model.Topic;
 import com.step.forum.spring.service.TopicService;
@@ -17,6 +18,8 @@ public class TopicController {
 
     @Autowired
     private TopicService topicService;
+    @Autowired
+    private PopularTopicsUpdaterJob popularTopicsUpdaterJob;
 
     @RequestMapping("/topics/{id}/comments")
     public String getCommentsByTopicId(@PathVariable("id") int id, Model model){
@@ -25,10 +28,10 @@ public class TopicController {
         return "fragment/comments";
     }
 
-    @RequestMapping("/topic/popular")
+    @RequestMapping("/topics/popular")
     @ResponseBody
     public List<Topic> getPopularTopics(){
-        return topicService.getPopularTopics();
+        return popularTopicsUpdaterJob.getPopularTopics();
     }
 
 }

@@ -23,11 +23,10 @@ function addReply () {
     var idInputTopic=$('#idInputTopic').val();
     var idInputDesc=$('#idInputDesc').val();
     $.ajax({
-        url: '/ts?action=addComment',
+        url: '/user/add-comment',
         type: "POST",
-        data: 'idTopic='+idInputTopic+'&desc='+idInputDesc,
-        dataType: 'html',
-        success: function (data) {
+        data: 'id-topic='+idInputTopic+'&desc='+idInputDesc,
+        success: function () {
             getCommentsByTopicId();
             $('#idInputDesc').val("");
 
